@@ -8,8 +8,8 @@ import threeMobile from "@/assets/landing-page/showcase/art03-mobile.png";
 import fourMobile from "@/assets/landing-page/showcase/art04-mobile.png";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { WalletDialog } from "../dialog/wallet";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { useNavigate } from "react-router-dom";
 
 const items = [
   {
@@ -39,7 +39,10 @@ function isEven(number: number) {
 }
 
 export default function ShowCase() {
+  const navigate = useNavigate();
+
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
   return (
     <div className="text-center space-y-16">
       <h1 className="text-2xl md:text-4xl font-semibold">
@@ -64,9 +67,7 @@ export default function ShowCase() {
         ))}
       </div>
 
-      <WalletDialog
-        trigger={<Button className="w-full sm:w-auto">Start Minting</Button>}
-      />
+      <Button className="w-full sm:w-auto" onClick={() => navigate('/mint')}>Start Minting</Button>
     </div>
   );
 }

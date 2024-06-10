@@ -8,6 +8,11 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SuccessDialog } from "../dialog/success";
+import { toast } from "sonner";
+import { BASE_CHAIN_CURRENCIES, CHAIN_ID } from "@/constants/network";
+import { useBuyNFTCallback } from "@/helpers/calls/useBuyNFTCallback";
+
+const NFT_PRICE = '3.50582';
 
 const selectedNFT = {
   Active: active,
@@ -36,29 +41,70 @@ export default function CheckoutForm() {
           Lorem ipsum dolor sit amet.
         </p>
         <Properties />
-        <Counter />
+        <Counter selectedNFT={title.toLowerCase()} />
       </div>
     </div>
   );
 }
 
-function Counter() {
+function Counter({ selectedNFT }: {selectedNFT: string}) {
+  const buyNFTCallback = useBuyNFTCallback();
   const [counter, setCounter] = useState(1);
   const [open, setOpen] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [pendingTx, setTxStatus] = useState<boolean>(false);
+
+  const nftIndexes = {
+    active: 1,
+    hydrated: 2,
+    runner: 3,
+    walker: 4,
+    jogger: 5,
+  }
+
+  const onBuyHandle = async () => {
+    if (counter < 1) return;
+
+    const amount = counter * Number(NFT_PRICE);
+
+    setTxStatus(true);
+
+    try {
+      const tx = await buyNFTCallback.handleBuy({
+        amount,
+        numTokens: counter,
+        variant: nftIndexes[selectedNFT],
+      });
+      toast.success("NFT minted. Pending confirmation...");
+
+      const receipt = await tx.wait();
+
+      console.log("We will call dialog here:: ", receipt.hash);
+      setTxStatus(false);
+      setCounter(1);
+    } catch (err: any) {
+      toast.error(err);
+      setTxStatus(false);
+    }
+  }
+
+  if(!nftIndexes[selectedNFT]) {
+    return <></>
+  }
 
   return (
     <div className="space-y-5">
       <div className="flex flex-col md:flex-row md:space-x-5 w-full">
         <div className="space-y-1">
           <span>Price:</span>
-          <h3 className="text-2xl font-semibold">3.5 MATIC</h3>
+          <h3 className="text-2xl font-semibold">{Number(NFT_PRICE) * counter} {BASE_CHAIN_CURRENCIES[CHAIN_ID].symbol}</h3>
         </div>
         <div className="text-center space-y-1 w-full md:w-auto">
           <span>Quantity:</span>
           <div className="space-x-2 w-full md:w-auto flex">
             <button
               className="px-4 py-2 rounded-lg bg-white/5 border border-white/10"
-              disabled={counter < 1}
+              disabled={counter < 1 || pendingTx}
               onMouseDown={() => setCounter((prev) => prev - 1)}
             >
               -
@@ -70,6 +116,7 @@ function Counter() {
 
             <button
               className="px-4 py-2 rounded-lg bg-white/5 border border-white/10"
+              disabled={pendingTx}
               onMouseDown={() => setCounter((prev) => prev + 1)}
             >
               {" "}
@@ -78,11 +125,9 @@ function Counter() {
           </div>
         </div>
       </div>
-      <SuccessDialog
-        trigger={<Button className="w-full md:w-auto md:px-10">Buy Now</Button>}
-        open={open}
-        setOpen={setOpen}
-      />
+      <Button disabled={counter < 1 || pendingTx} onClick={
+          () => onBuyHandle()
+        } className="w-full md:w-auto md:px-10">Buy Now</Button>
     </div>
   );
 }

@@ -3,11 +3,13 @@ import avatarsPNG from "@/assets/landing-page/avatars.png";
 import heroImg from "@/assets/landing-page/hero.svg";
 import wallet from "@/assets/template/wallet.svg";
 import { Button } from "@/components/ui/button";
-import { WalletDialog } from "../dialog/wallet";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
+  const navigate = useNavigate();
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
   return (
     <div className="flex items-center justify-between md:h-[100vh] hero-bg px-5 md:px-10 lg:px-14 xl:px-16 2xl:px-20">
       <div className="bg-cover space-y-7 h-full w-full flex justify-center items-start flex-col">
@@ -18,14 +20,12 @@ export default function Hero() {
           A collection of 10000 NFTs curated with the utmost attention to
           details, giving you all the feels of the Nuriverse
         </p>
-        <WalletDialog
-          trigger={
-            <Button className="space-x-2 w-full md:w-auto">
+        
+            <Button className="space-x-2 w-full md:w-auto" onClick={() => navigate('/mint')}>
               <img src={wallet} alt="wallet" className="w-4 h-4" />{" "}
               <span>Start Minting</span>
             </Button>
-          }
-        />
+        
         <div className="flex items-center space-x-3">
           <img
             src={isDesktop ? avatars : avatarsPNG}

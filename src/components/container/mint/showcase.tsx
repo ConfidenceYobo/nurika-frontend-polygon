@@ -32,31 +32,31 @@ const items: Item[] = [
     title: "Active",
     image: one,
     imageMobile: oneMobile,
-    price: "0.009ETH",
+    price: "3.50582ETH",
   },
   {
     title: "Hydrated",
     image: two,
     imageMobile: twoMobile,
-    price: "0.009ETH",
+    price: "3.50582ETH",
   },
   {
     title: "Runner",
     image: three,
     imageMobile: threeMobile,
-    price: "0.009ETH",
+    price: "3.50582ETH",
   },
   {
     title: "Walker",
     image: four,
     imageMobile: fourMobile,
-    price: "0.009ETH",
+    price: "3.50582ETH",
   },
   {
     title: "Jogger",
     image: five,
     imageMobile: fiveMobile,
-    price: "0.009ETH",
+    price: "3.50582ETH",
   },
 ];
 
