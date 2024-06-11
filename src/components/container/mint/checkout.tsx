@@ -1,8 +1,3 @@
-import active from "@/assets/mint-page/checkout/active.png";
-import hydrated from "@/assets/mint-page/checkout/hydrated.png";
-import runner from "@/assets/mint-page/checkout/runner.png";
-import walker from "@/assets/mint-page/checkout/walker.png";
-import jogger from "@/assets/mint-page/checkout/jogger.png";
 import { SelectedNFTTitle } from "./showcase";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -11,8 +6,11 @@ import { SuccessDialog } from "../dialog/success";
 import { toast } from "sonner";
 import { BASE_CHAIN_CURRENCIES, CHAIN_ID } from "@/constants/network";
 import { useBuyNFTCallback } from "@/helpers/calls/useBuyNFTCallback";
-
-const NFT_PRICE = '3.50582';
+import active from "@/assets/landing-page/showcase/active.png";
+import hydrated from "@/assets/landing-page/showcase/hydrate.png";
+import runner from "@/assets/landing-page/showcase/runner.png";
+import walker from "@/assets/landing-page/showcase/walker.png";
+import jogger from "@/assets/landing-page/showcase/jogger.png";
 
 const selectedNFT = {
   Active: active,
@@ -21,6 +19,8 @@ const selectedNFT = {
   Walker: walker,
   Jogger: jogger,
 };
+
+const NFT_PRICE = "3.50582";
 
 export default function CheckoutForm() {
   const title = useParams().title as SelectedNFTTitle;
@@ -47,7 +47,7 @@ export default function CheckoutForm() {
   );
 }
 
-function Counter({ selectedNFT }: {selectedNFT: string}) {
+function Counter({ selectedNFT }: { selectedNFT: string }) {
   const buyNFTCallback = useBuyNFTCallback();
   const [counter, setCounter] = useState(1);
   const [open, setOpen] = useState(false);
@@ -60,7 +60,7 @@ function Counter({ selectedNFT }: {selectedNFT: string}) {
     runner: 3,
     walker: 4,
     jogger: 5,
-  }
+  };
 
   const onBuyHandle = async () => {
     if (counter < 1) return;
@@ -86,10 +86,10 @@ function Counter({ selectedNFT }: {selectedNFT: string}) {
       toast.error(err);
       setTxStatus(false);
     }
-  }
+  };
 
-  if(!nftIndexes[selectedNFT]) {
-    return <></>
+  if (!nftIndexes[selectedNFT]) {
+    return <></>;
   }
 
   return (
@@ -97,7 +97,10 @@ function Counter({ selectedNFT }: {selectedNFT: string}) {
       <div className="flex flex-col md:flex-row md:space-x-5 w-full">
         <div className="space-y-1">
           <span>Price:</span>
-          <h3 className="text-2xl font-semibold">{Number(NFT_PRICE) * counter} {BASE_CHAIN_CURRENCIES[CHAIN_ID].symbol}</h3>
+          <h3 className="text-2xl font-semibold">
+            {Number(NFT_PRICE) * counter}{" "}
+            {BASE_CHAIN_CURRENCIES[CHAIN_ID].symbol}
+          </h3>
         </div>
         <div className="text-center space-y-1 w-full md:w-auto">
           <span>Quantity:</span>
@@ -125,9 +128,13 @@ function Counter({ selectedNFT }: {selectedNFT: string}) {
           </div>
         </div>
       </div>
-      <Button disabled={counter < 1 || pendingTx} onClick={
-          () => onBuyHandle()
-        } className="w-full md:w-auto md:px-10">Buy Now</Button>
+      <Button
+        disabled={counter < 1 || pendingTx}
+        onClick={() => onBuyHandle()}
+        className="w-full md:w-auto md:px-10"
+      >
+        Buy Now
+      </Button>
     </div>
   );
 }

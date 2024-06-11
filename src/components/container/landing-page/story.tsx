@@ -1,13 +1,16 @@
-import two from "@/assets/landing-page/showcase/art02.png";
+import two from "@/assets/landing-page/showcase/hydrate.png";
 
 export default function Story() {
   return (
     <div className="flex flex-col sm:flex-row justify-around items-start md:items-center space-y-5 md:space-y-0">
-      <div className="p-5 rounded-3xl bg-white/5 w-full sm:w-auto max-w-[300px]">
-        <img src={two} className="w-full h-full" />
+      <div
+        className="p-5 rounded-3xl bg-white/5 w-full sm:w-auto max-w-[300px]"
+        data-aos="fade-right"
+      >
+        <img src={two} alt="" className="w-full h-full rounded-md" />
       </div>
 
-      <div>
+      <div data-aos="fade-left">
         <span className="uppercase text-primary-base font-bold">
           The Nuriverse story
         </span>

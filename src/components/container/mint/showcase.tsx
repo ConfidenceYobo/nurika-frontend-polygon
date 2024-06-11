@@ -1,14 +1,9 @@
-import one from "@/assets/landing-page/showcase/art01.png";
-import two from "@/assets/landing-page/showcase/art02.png";
-import three from "@/assets/landing-page/showcase/art03.png";
-import four from "@/assets/landing-page/showcase/art04.png";
-import five from "@/assets/landing-page/showcase/art05.png";
-import oneMobile from "@/assets/landing-page/showcase/art01-mobile.png";
-import twoMobile from "@/assets/landing-page/showcase/art02-mobile.png";
-import threeMobile from "@/assets/landing-page/showcase/art03-mobile.png";
-import fourMobile from "@/assets/landing-page/showcase/art04-mobile.png";
-import fiveMobile from "@/assets/landing-page/showcase/art05-mobile.png";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import one from "@/assets/mint-page/showcase/active.mp4";
+import two from "@/assets/mint-page/showcase/hydrate.mp4";
+import three from "@/assets/mint-page/showcase/runner.mp4";
+import four from "@/assets/mint-page/showcase/walker.mp4";
+import five from "@/assets/mint-page/showcase/joggers.mp4";
+
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -20,52 +15,38 @@ export type SelectedNFTTitle =
   | "Walker"
   | "Jogger";
 
-interface Item {
-  title: SelectedNFTTitle;
-  image: string;
-  imageMobile: string;
-  price: string;
-}
-
-const items: Item[] = [
+const items = [
   {
     title: "Active",
-    image: one,
-    imageMobile: oneMobile,
-    price: "3.50582ETH",
+    video: one,
+    price: "0.003771ETH",
   },
   {
     title: "Hydrated",
-    image: two,
-    imageMobile: twoMobile,
-    price: "3.50582ETH",
+    video: two,
+    price: "0.003771ETH",
   },
   {
     title: "Runner",
-    image: three,
-    imageMobile: threeMobile,
-    price: "3.50582ETH",
+    video: three,
+    price: "0.003771ETH",
   },
   {
     title: "Walker",
-    image: four,
-    imageMobile: fourMobile,
-    price: "3.50582ETH",
+    video: four,
+    price: "0.003771ETH",
   },
   {
     title: "Jogger",
-    image: five,
-    imageMobile: fiveMobile,
-    price: "3.50582ETH",
+    video: five,
+    price: "0.003771ETH",
   },
 ];
 
 export default function ShowCase() {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-
   return (
     <div className="text-start space-y-10 md:space-y-16">
-      <h1 className="text-2xl md:text-4xl font-semibold">
+      <h1 className="text-2xl md:text-4xl font-semibold" data-aos="fade-down">
         The amazing NFT art of the Nuriverse
       </h1>
 
@@ -80,11 +61,11 @@ export default function ShowCase() {
             className={cn(
               "bg-white/5 w-full sm:w-[300px] p-5 rounded-3xl flex flex-col justify-center items-center space-y-3 mx-auto"
             )}
+            data-aos="fade-up"
           >
-            <img
-              src={isDesktop ? item.image : item.imageMobile}
-              className="rounded-2xl h-full max-w-[300px]"
-            />
+            <video className="w-full rounded" autoPlay={true} loop={true}>
+              <source src={item.video} type="video/mp4" />
+            </video>
             <span className="text-xl font-bold">{item.title}</span>
           </Link>
         ))}
