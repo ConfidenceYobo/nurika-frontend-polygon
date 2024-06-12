@@ -17,18 +17,39 @@ import jogger from "@/assets/landing-page/showcase/jogger.png";
 import { useWeb3Context } from "@/context/Web3Context";
 
 const selectedNFT = {
-  Active: active,
-  Hydrated: hydrated,
-  Runner: runner,
-  Walker: walker,
-  Jogger: jogger,
+  Active: {
+    image: active,
+    content:
+      "Every heart beat reminds you of the essence of life, every second spent exercising brings you closer to your goals, and every sweat broken is a badge of honor. Keep your vitals within range, stay active! Crafted for Nurikans on-the-go",
+  },
+  Hydrated: {
+    image: hydrated,
+    content:
+      "When you’re pushing your limits, don’t forget to oil your levers! Pause, and indulge in the refreshing essence of water, keeping you hydrated all through your fitness journey. And even when you’re just going about your day, have a jar with you.",
+  },
+  Runner: {
+    image: runner,
+    content:
+      "The wind against your face, as you push beyond limits, through tracks and difficult terrains. For runners at heart, where determination trumps sweat and cramps.",
+  },
+  Walker: {
+    image: walker,
+    content:
+      "One foot after the other, one day after the other, smashing one goal after another. Walk away from a sedentary life, into one of endless possibilities, fit as fiddle. True walkers understand that no distance is too great to be surmounted. Here’s a badge for true walkers.",
+  },
+  Jogger: {
+    image: jogger,
+    content:
+      "Jogging is your happy place, at dusk or dawn, with a dash of upbeat music or whatever suits your mood. Purple is royalty, even when mixed with sweat and dirt.",
+  },
 };
 
-const NFT_PRICE = "3.50582";
+const NFT_PRICE = "0.003771";
 
 export default function CheckoutForm() {
   const title = useParams().title as SelectedNFTTitle;
-  const selectedNFTImage = selectedNFT[title];
+  const selectedNFTImage = selectedNFT[title].image;
+  const selectedNFTContent = selectedNFT[title].content;
 
   return (
     <div className="flex flex-col md:flex-row justify-between space-y-5 md:space-y-0  md:space-x-5 items-start md:items-center">
@@ -38,12 +59,7 @@ export default function CheckoutForm() {
       <div className="space-y-5">
         <span>{title} #312</span>
         <h1 className="text-5xl font-bold">{title} #312</h1>
-        <p className="text-white/70">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore sed
-          rerum recusandae nemo tenetur voluptatum eveniet totam repellendus nam
-          commodi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Lorem ipsum dolor sit amet.
-        </p>
+        <p className="text-white/70">{selectedNFTContent}</p>
         <Properties />
         <Counter selectedNFT={title.toLowerCase()} />
       </div>
