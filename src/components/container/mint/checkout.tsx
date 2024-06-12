@@ -2,15 +2,19 @@ import { SelectedNFTTitle } from "./showcase";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import ConnectWallet from "@/components/cta/ConnectWalletButton";
 import { SuccessDialog } from "../dialog/success";
 import { toast } from "sonner";
 import { BASE_CHAIN_CURRENCIES, CHAIN_ID } from "@/constants/network";
 import { useBuyNFTCallback } from "@/helpers/calls/useBuyNFTCallback";
+
 import active from "@/assets/landing-page/showcase/active.png";
 import hydrated from "@/assets/landing-page/showcase/hydrate.png";
 import runner from "@/assets/landing-page/showcase/runner.png";
 import walker from "@/assets/landing-page/showcase/walker.png";
 import jogger from "@/assets/landing-page/showcase/jogger.png";
+
+import { useWeb3Context } from "@/context/Web3Context";
 
 const selectedNFT = {
   Active: active,
@@ -53,6 +57,7 @@ function Counter({ selectedNFT }: { selectedNFT: string }) {
   const [open, setOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [pendingTx, setTxStatus] = useState<boolean>(false);
+  const { isConnected } = useWeb3Context();
 
   const nftIndexes = {
     active: 1,
@@ -75,10 +80,10 @@ function Counter({ selectedNFT }: { selectedNFT: string }) {
         numTokens: counter,
         variant: nftIndexes[selectedNFT],
       });
-      toast.success("NFT minted. Pending confirmation...");
+      toast.info("NFT minted. Pending confirmation...");
 
       const receipt = await tx.wait();
-
+      toast.success("Transaction successful");
       console.log("We will call dialog here:: ", receipt.hash);
       setTxStatus(false);
       setCounter(1);
@@ -128,13 +133,19 @@ function Counter({ selectedNFT }: { selectedNFT: string }) {
           </div>
         </div>
       </div>
-      <Button
-        disabled={counter < 1 || pendingTx}
-        onClick={() => onBuyHandle()}
-        className="w-full md:w-auto md:px-10"
-      >
-        Buy Now
-      </Button>
+      {isConnected ? (
+        <Button
+          disabled={counter < 1 || pendingTx}
+          onClick={() => onBuyHandle()}
+          className="w-full md:w-auto md:px-10"
+        >
+          Buy Now
+        </Button>
+      ) : (
+        <ConnectWallet>
+          <Button className="w-full md:w-auto md:px-10">Connect Wallet</Button>
+        </ConnectWallet>
+      )}
     </div>
   );
 }
