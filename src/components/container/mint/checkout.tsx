@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import ConnectWallet from "@/components/cta/ConnectWalletButton";
-import { SuccessDialog } from "../dialog/success";
 import { toast } from "sonner";
 import { BASE_CHAIN_CURRENCIES, CHAIN_ID } from "@/constants/network";
 import { useBuyNFTCallback } from "@/helpers/calls/useBuyNFTCallback";
