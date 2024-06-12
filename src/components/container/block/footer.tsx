@@ -6,19 +6,19 @@ import telegram from "@/assets/template/social-handles/telegram.svg";
 export default function Footer() {
   const socialMediaHandles = [
     {
-      link: "",
+      link: "https://www.facebook.com/nurikahealth",
       icon: facebook,
     },
     {
-      link: "",
+      link: "https://twitter.com/nurikahealth",
       icon: twitter,
     },
     {
-      link: "",
+      link: "https://instagram.com/nurikahealth",
       icon: instagram,
     },
     {
-      link: "",
+      link: "https://t.me/nurikahealth",
       icon: telegram,
     },
   ];
