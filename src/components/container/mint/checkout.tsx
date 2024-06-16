@@ -7,37 +7,36 @@ import { toast } from "sonner";
 import { BASE_CHAIN_CURRENCIES, CHAIN_ID } from "@/constants/network";
 import { useBuyNFTCallback } from "@/helpers/calls/useBuyNFTCallback";
 
-import active from "@/assets/landing-page/showcase/active.png";
-import hydrated from "@/assets/landing-page/showcase/hydrate.png";
-import runner from "@/assets/landing-page/showcase/runner.png";
-import walker from "@/assets/landing-page/showcase/walker.png";
-import jogger from "@/assets/landing-page/showcase/jogger.png";
 
-import { useWeb3Context } from "@/context/Web3Context";
+import one from "@/assets/mint-page/showcase/active.mp4";
+import two from "@/assets/mint-page/showcase/hydrate.mp4";
+import three from "@/assets/mint-page/showcase/runner.mp4";
+import four from "@/assets/mint-page/showcase/walker.mp4";
+import five from "@/assets/mint-page/showcase/joggers.mp4";
 
 const selectedNFT = {
   Active: {
-    image: active,
+    image: one,
     content:
       "Every heart beat reminds you of the essence of life, every second spent exercising brings you closer to your goals, and every sweat broken is a badge of honor. Keep your vitals within range, stay active! Crafted for Nurikans on-the-go",
   },
   Hydrated: {
-    image: hydrated,
+    image: two,
     content:
       "When you’re pushing your limits, don’t forget to oil your levers! Pause, and indulge in the refreshing essence of water, keeping you hydrated all through your fitness journey. And even when you’re just going about your day, have a jar with you.",
   },
   Runner: {
-    image: runner,
+    image: three,
     content:
       "The wind against your face, as you push beyond limits, through tracks and difficult terrains. For runners at heart, where determination trumps sweat and cramps.",
   },
   Walker: {
-    image: walker,
+    image: four,
     content:
       "One foot after the other, one day after the other, smashing one goal after another. Walk away from a sedentary life, into one of endless possibilities, fit as fiddle. True walkers understand that no distance is too great to be surmounted. Here’s a badge for true walkers.",
   },
   Jogger: {
-    image: jogger,
+    image: five,
     content:
       "Jogging is your happy place, at dusk or dawn, with a dash of upbeat music or whatever suits your mood. Purple is royalty, even when mixed with sweat and dirt.",
   },
@@ -47,13 +46,15 @@ const NFT_PRICE = "0.003771";
 
 export default function CheckoutForm() {
   const title = useParams().title as SelectedNFTTitle;
-  const selectedNFTImage = selectedNFT[title].image;
+  const selectedNFTVideo = selectedNFT[title].image;
   const selectedNFTContent = selectedNFT[title].content;
 
   return (
     <div className="flex flex-col md:flex-row justify-between space-y-5 md:space-y-0  md:space-x-5 items-start md:items-center">
-      <aside className="max-w-[500px]">
-        <img src={selectedNFTImage} alt="" />
+      <aside className="max-w-[500px] h-full">
+        <video className="w-full rounded" autoPlay={true} loop={true}>
+          <source src={selectedNFTVideo} type="video/mp4" />
+        </video>
       </aside>
       <div className="space-y-5">
         <span>{title}</span>
