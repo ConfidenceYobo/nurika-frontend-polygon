@@ -6,6 +6,7 @@ import ConnectWallet from "@/components/cta/ConnectWalletButton";
 import { toast } from "sonner";
 import { BASE_CHAIN_CURRENCIES, CHAIN_ID } from "@/constants/network";
 import { useBuyNFTCallback } from "@/helpers/calls/useBuyNFTCallback";
+import { useWeb3Context } from "@/context/Web3Context";
 
 
 import one from "@/assets/mint-page/showcase/active.mp4";
