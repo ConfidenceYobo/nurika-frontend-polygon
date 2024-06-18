@@ -8,7 +8,6 @@ import { BASE_CHAIN_CURRENCIES, CHAIN_ID } from "@/constants/network";
 import { useBuyNFTCallback } from "@/helpers/calls/useBuyNFTCallback";
 import { useWeb3Context } from "@/context/Web3Context";
 
-
 import one from "@/assets/mint-page/showcase/active.mp4";
 import two from "@/assets/mint-page/showcase/hydrate.mp4";
 import three from "@/assets/mint-page/showcase/runner.mp4";
@@ -168,11 +167,13 @@ function Counter({ selectedNFT }: { selectedNFT: string }) {
 }
 
 function Properties() {
+  const title = useParams().title as SelectedNFTTitle;
+
   const properties = [
     {
       type: "Accessories",
-      title: "Sole",
-      description: "33% have this trait",
+      title: title === "Hydrated" ? "Fluid" : "Sole",
+      description: "20% have this trait",
     },
   ];
 
